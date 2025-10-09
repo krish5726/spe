@@ -9,7 +9,7 @@ pipeline {
   stages {
     stage('Checkout') {
       steps {
-        git 'https://github.com/krish5726/spe.git'
+        git branch: 'main', url: 'https://github.com/krish5726/spe.git'
       }
     }
 
@@ -42,4 +42,5 @@ pipeline {
     }
   }
 }
+
 
