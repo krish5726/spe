@@ -38,7 +38,7 @@ pipeline {
             steps {
                 ansiblePlaybook(
                     installation: 'Ansible',
-                    inventory: 'ansible/host.ini',
+                    inventory: 'ansible/hosts.ini',
                     playbook: 'ansible/playbook-deploy.yml',
                 )
             }
@@ -59,6 +59,7 @@ pipeline {
     }
   }
 }
+
 
 
 
