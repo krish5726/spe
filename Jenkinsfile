@@ -8,7 +8,9 @@ pipeline {
 
   stages {
     stage('Checkout') {
-      steps { checkout scm }
+      steps {
+        git 'https://github.com/krish5726/spe.git'
+      }
     }
 
     stage('Build & Test') {
@@ -40,3 +42,4 @@ pipeline {
     }
   }
 }
+
