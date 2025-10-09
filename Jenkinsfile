@@ -33,22 +33,33 @@ pipeline {
         }
       }
     }
+
+    stage("Deploy via ansible") {
+            steps {
+                ansiblePlaybook(
+                    installation: 'Ansible',
+                    inventory: 'ansible/host.ini',
+                    playbook: 'ansible/playbook-deploy.yml',
+                )
+            }
+        }
   }
 
   post {
     success{
       mail to: krishspatel@gmail.com,
         subject: "Jenkins Job Status",
-        body: "Build Succcess"
+        body: "Build Succcess ${env.BUILD_NUMBER}"
     }
 
     failure{
       mail to: krishspatel@gmail.com,
         subject: "Jenkins Job status",
-        body: "Build Failed"
+        body: "Build Failed ${env.BUILD_NUMBER}"
     }
   }
 }
+
 
 
 
