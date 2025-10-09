@@ -1,34 +1,18 @@
----
-- name: Deploy scientific calculator Docker container
+- name: Deploy Calculator App
   hosts: local
-  become: false
+
   tasks:
-    - name: Ensure docker python library is present (for remote hosts; on localhost it's usually present)
-      ansible.builtin.package:
-        name: python3-docker
-        state: present
-      when: ansible_connection != 'local'
-      ignore_errors: yes
-
-    - name: Pull docker image
-      community.docker.docker_image:
-        name: "krish5726/spe:latest"
-        state: pull
-
-    - name: Stop and remove existing container if present
-      community.docker.docker_container:
-        name: "calculator"
+    - name: Remove old containers
+      docker_container:
+        name: calculator
         state: absent
         force_kill: yes
-      ignore_errors: yes
 
-    - name: Run container
-      community.docker.docker_container:
-        name: "calculator"
-        image: "krish5726/spe:latest"
+    - name: Deploy Calculator App
+      docker_container:
+        name: calculator
+        image: krish5726/spe
         state: started
-        restart_policy: unless-stopped
-        tty: yes
-        interactive: true
-        command: ["java","-jar","/app/app.jar"]
-        published_ports: []  # not mapping ports for CLI app
+        interactive: yes
+        detach: yes
+
