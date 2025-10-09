@@ -15,7 +15,7 @@ pipeline {
 
     stage('Build & Test') {
       steps {
-        sh 'mvn -B -Dmaven.test.failure.ignore=false test package'
+        sh 'mvn clean install'
       }
     }
 
@@ -36,11 +36,19 @@ pipeline {
   }
 
   post {
-    always {
-      archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
-      junit '**/target/surefire-reports/*.xml'
+    success{
+      mail to: krishspatel@gmail.com,
+        subject: "Jenkins Job Status",
+        body: "Build Succcess"
+    }
+
+    failure{
+      mail to: krishspatel@gmail.com,
+        subject: "Jenkins Job status",
+        body: "Build Failed"
     }
   }
 }
+
 
 
