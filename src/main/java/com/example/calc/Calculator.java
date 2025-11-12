@@ -4,7 +4,6 @@ import java.math.BigInteger;
 
 public class Calculator {
 
-    // Square root
     public double sqrt(double x) {
         if (x < 0) throw new IllegalArgumentException("Square root of negative number");
         return Math.sqrt(x);
@@ -32,3 +31,4 @@ public class Calculator {
         return Math.pow(x, b);
     }
 }
+
